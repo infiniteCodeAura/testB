@@ -16,6 +16,7 @@ import {
   FormControlLabel,
 } from "@mui/material"
 import { Visibility, VisibilityOff, Google, Facebook, Apple } from "@mui/icons-material"
+import API_BASE_URL from "../config/api.js"
 
 const Login = () => {
   const navigate = useNavigate()
@@ -42,7 +43,7 @@ const Login = () => {
     if (!formData.email) {
       newErrors.email = "Email is required"
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = "Email is invalid" 
+      newErrors.email = "Email is invalid"
     }
     if (!formData.password) newErrors.password = "Password is required"
     setErrors(newErrors)
@@ -55,7 +56,7 @@ const Login = () => {
     setIsLoading(true)
 
     try {
-      const res = await fetch("http://https://deploy-7fn8.onrender.com/api/v1/user/login", {
+      const res = await fetch(`${API_BASE_URL}/api/v1/user/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

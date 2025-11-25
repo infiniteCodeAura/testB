@@ -19,6 +19,7 @@ import {
   ListItemText,
 } from "@mui/material"
 import { Email, Phone, LocationOn, AccessTime, Send, Support, QuestionAnswer, BugReport } from "@mui/icons-material"
+import API_BASE_URL from "../config/api.js"
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -76,7 +77,7 @@ const Contact = () => {
     setIsSubmitting(true)
 
     try {
-      const response = await fetch('http://https://deploy-7fn8.onrender.com/api/v0/contact', {
+      const response = await fetch(`${API_BASE_URL}/api/v0/contact`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

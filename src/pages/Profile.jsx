@@ -1,6 +1,7 @@
 /* Profile.jsx — React E-commerce Platform */
 import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
+import API_BASE_URL from '../config/api.js';
 import VerifiedIcon from '@mui/icons-material/Verified';
 import {
   Container,
@@ -38,7 +39,7 @@ import {
 } from '@mui/icons-material';
 
 const api = axios.create({
-  baseURL: '/api/v1',
+  baseURL: `${API_BASE_URL}/api/v1`,
   withCredentials: true,
   headers: {
     'Content-Type': 'application/json'
@@ -46,7 +47,7 @@ const api = axios.create({
 });
 
 const apiV3 = axios.create({
-  baseURL: '/api/v3',
+  baseURL: `${API_BASE_URL}/api/v3`,
   withCredentials: true,
   headers: {
     'Content-Type': 'application/json'
@@ -98,7 +99,7 @@ const Profile = () => {
 
   /* avatar */
   const avatarRef = useRef(null);
-  const baseUrl = "http://https://deploy-7fn8.onrender.com/";
+  const baseUrl = `${API_BASE_URL}/`;
 
 
   /* per-field edit states */

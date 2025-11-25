@@ -2,6 +2,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import axios from 'axios';
+import API_BASE_URL from '../config/api.js';
 import {
   Container,
   Typography,
@@ -28,7 +29,7 @@ import {
 const PAGE_SIZE = 15;
 
 /* Put your back-end base URL here.  */
-const API_BASE = 'http://localhost:9090';
+const API_BASE = API_BASE_URL;
 
 /* -------------------------------------------------- */
 const paramsToObject = (searchParams) => {

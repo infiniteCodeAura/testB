@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import API_BASE_URL from "../config/api.js";
 import { Container, Typography, CircularProgress, Button, Box } from "@mui/material";
 import { CheckCircle, Error } from "@mui/icons-material";
 
@@ -20,13 +21,13 @@ const PaymentCallback = () => {
             try {
                 const token = localStorage.getItem("token");
                 await axios.post(
-                    "http://https://deploy-7fn8.onrender.com/api/v3/payment/khalti/verify",
+                    `${API_BASE_URL}/api/v3/payment/khalti/verify`,
                     { pidx },
                     { headers: { Authorization: `Bearer ${token}` } }
                 );
                 setStatus("success");
                 // Optionally clear cart here if not done by backend
-                await axios.delete("http://https://deploy-7fn8.onrender.com/api/v3/user/cart/flush", {
+                await axios.delete(`${API_BASE_URL}/api/v3/user/cart/flush`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
             } catch (error) {

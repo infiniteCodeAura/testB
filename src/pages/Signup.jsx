@@ -21,6 +21,7 @@ import {
   FormLabel,
 } from "@mui/material"
 import { Visibility, VisibilityOff, Google, Facebook, Apple } from "@mui/icons-material"
+import API_BASE_URL from "../config/api.js"
 
 const Signup = () => {
   const navigate = useNavigate()
@@ -88,7 +89,7 @@ const Signup = () => {
     }
 
     try {
-      const res = await fetch("http://https://deploy-7fn8.onrender.com/api/v1/user/signup", {
+      const res = await fetch(`${API_BASE_URL}/api/v1/user/signup`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),

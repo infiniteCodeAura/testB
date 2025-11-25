@@ -1,8 +1,9 @@
 import axios from 'axios';
+import API_BASE_URL from '../config/api.js';
 
 // Create axios instance
 const api = axios.create({
-  baseURL: 'http://https://deploy-7fn8.onrender.com/api/v1',
+  baseURL: `${API_BASE_URL}/api/v1`,
 });
 
 // Add token to every request

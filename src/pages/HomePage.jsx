@@ -4,6 +4,7 @@ import { Link } from "react-router-dom"
 import { Container, Typography, Button, Box, Grid, Card, Paper, useTheme, CircularProgress } from "@mui/material"
 import { ArrowForward, TrendingUp, LocalShipping, Security, Support } from "@mui/icons-material"
 import axios from "axios"
+import API_BASE_URL from "../config/api.js"
 import ProductCard from "../components/ProductCard.jsx"
 import { categories } from "../data/products.js" // Keep categories for now or fetch them if API exists
 
@@ -17,7 +18,7 @@ const HomePage = () => {
     const fetchProducts = async () => {
       try {
         // Fetch products from public API
-        const { data } = await axios.get("http://https://deploy-7fn8.onrender.com/api/v0/products")
+        const { data } = await axios.get(`${API_BASE_URL}/api/v0/products`)
         const allProducts = data.data || []
 
         // Logic for featured (e.g., newest 4)

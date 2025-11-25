@@ -40,9 +40,10 @@ import {
   Send,
 } from "@mui/icons-material";
 import { useCart } from "../context/CartContext.jsx";
+import API_BASE_URL from "../config/api.js";
 
-const BASE_URL    = "http://localhost:9090";
-const ORDER_BASE_URL = "http://localhost:9090";
+const BASE_URL = API_BASE_URL;
+const ORDER_BASE_URL = API_BASE_URL;
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -50,20 +51,20 @@ const ProductDetail = () => {
   const { addToCart } = useCart();
 
   /* ---------- product ---------- */
-  const [product, setProduct]           = useState(null);
-  const [loading, setLoading]           = useState(true);
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [selectedImage, setSelectedImage] = useState(0);
-  const [quantity, setQuantity]         = useState(1);
-  const [isFavorite, setIsFavorite]     = useState(false);
-  const [addedToCart, setAddedToCart]   = useState(false);
+  const [quantity, setQuantity] = useState(1);
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [addedToCart, setAddedToCart] = useState(false);
 
   /* ---------- comments / replies ---------- */
-  const [comments, setComments]         = useState([]);
-  const [newComment, setNewComment]     = useState("");
-  const [replyText, setReplyText]       = useState({});
-  const [replyingTo, setReplyingTo]     = useState(null);
-    /* ---------- comment list from /product/:id/list ---------- */
-    const [commentList, setCommentList] = useState([]);
+  const [comments, setComments] = useState([]);
+  const [newComment, setNewComment] = useState("");
+  const [replyText, setReplyText] = useState({});
+  const [replyingTo, setReplyingTo] = useState(null);
+  /* ---------- comment list from /product/:id/list ---------- */
+  const [commentList, setCommentList] = useState([]);
   /* ---------- reviews ---------- */
   const [reviews, setReviews] = useState([]);
   const [ratingValue, setRatingValue] = useState(5);
@@ -78,7 +79,7 @@ const ProductDetail = () => {
       return;
     }
     axios
-      .get("http://https://deploy-7fn8.onrender.com/api/v1/user/profile/", {
+      .get(`${API_BASE_URL}/api/v1/user/profile/`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .catch(() => {
@@ -100,7 +101,7 @@ const ProductDetail = () => {
   /* ---------- fetch comments ---------- */
   const fetchComments = () =>
     // include auth header if token present; some endpoints require authentication
-  (() => {
+    (() => {
       const token = localStorage.getItem("token");
       const config = token ? { headers: { Authorization: `Bearer ${token}` } } : {};
       return axios
@@ -122,7 +123,7 @@ const ProductDetail = () => {
   /* ---------- fetch reviews ---------- */
   const fetchReviews = () =>
     // include auth header if token present
-  (() => {
+    (() => {
       const token = localStorage.getItem("token");
       const config = token ? { headers: { Authorization: `Bearer ${token}` } } : {};
       return axios
@@ -146,33 +147,33 @@ const ProductDetail = () => {
   useEffect(() => {
     if (product) fetchComments();
     if (product) fetchReviews();
-      if (product) fetchCommentList();
+    if (product) fetchCommentList();
   }, [product]);
 
-    /* ---------- fetch comment list ---------- */
-    const fetchCommentList = () => {
-      // include auth header if token present
-      const token = localStorage.getItem("token");
-      const config = token ? { headers: { Authorization: `Bearer ${token}` } } : {};
-      // NOTE: use the same /api/v3 prefix as other endpoints
-      return axios
-        .get(`${BASE_URL}/api/v3/product/${id}/list`, config)
-        .then(({ data }) => setCommentList(data.comments || data || []))
-        .catch((err) => {
-          // backend may not expose this endpoint; silently handle 404 and
-          // clear the list. Log other errors to help debugging.
-          if (err?.response?.status === 404) {
-            setCommentList([]);
-          } else if (err?.response?.status === 401 || err?.response?.status === 403) {
-            alert("Session invalid or expired. Please login again.");
-            navigate("/login");
-            setCommentList([]);
-          } else {
-            console.error("fetchCommentList error:", err);
-            setCommentList([]);
-          }
-        });
-    };
+  /* ---------- fetch comment list ---------- */
+  const fetchCommentList = () => {
+    // include auth header if token present
+    const token = localStorage.getItem("token");
+    const config = token ? { headers: { Authorization: `Bearer ${token}` } } : {};
+    // NOTE: use the same /api/v3 prefix as other endpoints
+    return axios
+      .get(`${BASE_URL}/api/v3/product/${id}/list`, config)
+      .then(({ data }) => setCommentList(data.comments || data || []))
+      .catch((err) => {
+        // backend may not expose this endpoint; silently handle 404 and
+        // clear the list. Log other errors to help debugging.
+        if (err?.response?.status === 404) {
+          setCommentList([]);
+        } else if (err?.response?.status === 401 || err?.response?.status === 403) {
+          alert("Session invalid or expired. Please login again.");
+          navigate("/login");
+          setCommentList([]);
+        } else {
+          console.error("fetchCommentList error:", err);
+          setCommentList([]);
+        }
+      });
+  };
   /* ---------- images ---------- */
   const images = useMemo(() => {
     if (!product) return ["/placeholder.svg"];
@@ -186,34 +187,34 @@ const ProductDetail = () => {
   /* ---------- cart helpers ---------- */
   const handleAddToCart = async () => {
     if (!product) return;
-  try {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      alert("Please login first");
-      navigate("/login");
-      return;
-    }
-
-    await axios.post(
-      `${ORDER_BASE_URL}/api/v3/product/add/cart/${product._id}`,
-      { quantity },
-      {
-        headers: { Authorization: `Bearer ${token}` },
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        alert("Please login first");
+        navigate("/login");
+        return;
       }
-    );
 
-    setAddedToCart(true);
-    setTimeout(() => setAddedToCart(false), 3000);
-  } catch (err) {
-    console.error("Add to cart error:", err);
-    alert("Failed to add to cart");
-  }
+      await axios.post(
+        `${ORDER_BASE_URL}/api/v3/product/add/cart/${product._id}`,
+        { quantity },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      setAddedToCart(true);
+      setTimeout(() => setAddedToCart(false), 3000);
+    } catch (err) {
+      console.error("Add to cart error:", err);
+      alert("Failed to add to cart");
+    }
   };
 
 
 
   const handlePlaceOrder = async () => {
-      const token = localStorage.getItem("token");
+    const token = localStorage.getItem("token");
     if (!token) {
       alert("Please login first");
       navigate("/login");
@@ -228,7 +229,7 @@ const ProductDetail = () => {
       }
       );
       alert("Order placed successfully!");
-    } catch {}
+    } catch { }
   };
 
   const handleQuantityChange = (change) => {
@@ -330,8 +331,8 @@ const ProductDetail = () => {
   const discount =
     product.originalPrice && product.price < product.originalPrice
       ? Math.round(
-          ((product.originalPrice - product.price) / product.originalPrice) * 100
-        )
+        ((product.originalPrice - product.price) / product.originalPrice) * 100
+      )
       : 0;
 
   /* ---------- render ---------- */

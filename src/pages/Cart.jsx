@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import axios from "axios"
+import API_BASE_URL from "../config/api.js"
 import {
   Container,
   Typography,
@@ -32,7 +33,7 @@ import {
   Image,
 } from "@mui/icons-material"
 
-const BASE_URL = "http://localhost:9090"
+const BASE_URL = API_BASE_URL;
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState([])
