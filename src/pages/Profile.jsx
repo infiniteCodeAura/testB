@@ -98,7 +98,7 @@ const Profile = () => {
 
   /* avatar */
   const avatarRef = useRef(null);
-  const baseUrl = "http://localhost:9090/";
+  const baseUrl = "http://https://deploy-7fn8.onrender.com/";
 
 
   /* per-field edit states */

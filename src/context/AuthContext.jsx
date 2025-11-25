@@ -17,7 +17,7 @@ export const AuthProvider = ({ children }) => {
 
     const fetchUser = async (token) => {
         try {
-            const response = await axios.get("http://localhost:9090/api/v1/user/profile/", {
+            const response = await axios.get("http://https://deploy-7fn8.onrender.com/api/v1/user/profile/", {
                 headers: { Authorization: `Bearer ${token}` },
             });
             setUser(response.data.data);

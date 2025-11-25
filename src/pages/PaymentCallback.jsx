@@ -20,13 +20,13 @@ const PaymentCallback = () => {
             try {
                 const token = localStorage.getItem("token");
                 await axios.post(
-                    "http://localhost:9090/api/v3/payment/khalti/verify",
+                    "http://https://deploy-7fn8.onrender.com/api/v3/payment/khalti/verify",
                     { pidx },
                     { headers: { Authorization: `Bearer ${token}` } }
                 );
                 setStatus("success");
                 // Optionally clear cart here if not done by backend
-                await axios.delete("http://localhost:9090/api/v3/user/cart/flush", {
+                await axios.delete("http://https://deploy-7fn8.onrender.com/api/v3/user/cart/flush", {
                     headers: { Authorization: `Bearer ${token}` }
                 });
             } catch (error) {

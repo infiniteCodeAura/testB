@@ -88,7 +88,7 @@ const Signup = () => {
     }
 
     try {
-      const res = await fetch("http://localhost:9090/api/v1/user/signup", {
+      const res = await fetch("http://https://deploy-7fn8.onrender.com/api/v1/user/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),

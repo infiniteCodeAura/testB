@@ -78,7 +78,7 @@ const ProductDetail = () => {
       return;
     }
     axios
-      .get("http://localhost:9090/api/v1/user/profile/", {
+      .get("http://https://deploy-7fn8.onrender.com/api/v1/user/profile/", {
         headers: { Authorization: `Bearer ${token}` },
       })
       .catch(() => {

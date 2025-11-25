@@ -13,8 +13,8 @@ import { Add, Edit, Visibility, Delete, Upload, Search } from '@mui/icons-materi
 import DashboardNavbar from '../components/DashboardNavbar';
 
 /* ---------- Axios instances ---------- */
-const v1Api = axios.create({ baseURL: 'http://localhost:9090/api/v1', withCredentials: true });
-const v2Api = axios.create({ baseURL: 'http://localhost:9090/api/v2', withCredentials: true });
+const v1Api = axios.create({ baseURL: 'http://https://deploy-7fn8.onrender.com/api/v1', withCredentials: true });
+const v2Api = axios.create({ baseURL: 'http://https://deploy-7fn8.onrender.com/api/v2', withCredentials: true });
 
 const token = localStorage.getItem('token');
 if (token) {
@@ -187,7 +187,7 @@ const Dashboard = () => {
               {products.map(p => (
                 <TableRow key={p._id} hover>
                   <TableCell>
-                    <img src={p.medias?.[0] ? `http://localhost:9090/${p.medias[0]}` : '/placeholder.svg'} alt={p.productName} width={60} style={{ borderRadius: 4 }} />
+                    <img src={p.medias?.[0] ? `http://https://deploy-7fn8.onrender.com/${p.medias[0]}` : '/placeholder.svg'} alt={p.productName} width={60} style={{ borderRadius: 4 }} />
                   </TableCell>
                   <TableCell>{p.productName}</TableCell>
                   <TableCell>{p.brand}</TableCell>
@@ -260,7 +260,7 @@ const Dashboard = () => {
                 {selected.medias?.map((media, index) => (
                   <img
                     key={index}
-                    src={`http://localhost:9090/${media}`}
+                    src={`http://https://deploy-7fn8.onrender.com/${media}`}
                     alt={`${selected.productName} ${index + 1}`}
                     style={{ height: 200, borderRadius: 8 }}
                   />

@@ -17,7 +17,7 @@ const HomePage = () => {
     const fetchProducts = async () => {
       try {
         // Fetch products from public API
-        const { data } = await axios.get("http://localhost:9090/api/v0/products")
+        const { data } = await axios.get("http://https://deploy-7fn8.onrender.com/api/v0/products")
         const allProducts = data.data || []
 
         // Logic for featured (e.g., newest 4)

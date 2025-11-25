@@ -76,7 +76,7 @@ const Contact = () => {
     setIsSubmitting(true)
 
     try {
-      const response = await fetch('http://localhost:9090/api/v0/contact', {
+      const response = await fetch('http://https://deploy-7fn8.onrender.com/api/v0/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
