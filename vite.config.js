@@ -34,5 +34,7 @@ export default defineConfig({
   build: {
     outDir: "build",
     sourcemap: true,
+        chunkSizeWarningLimit: 2000,  // increases limit to 2 MB
+
   },
 });
